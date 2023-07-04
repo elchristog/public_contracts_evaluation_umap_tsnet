@@ -1,3 +1,12 @@
+In Colombia, public procurement is a process that is carried out through the National Public Procurement Agency (ANCP), which is the entity in charge of managing public procurement in the country. The ANCP is a decentralized entity of the national order, with legal status, administrative and financial autonomy, and its own assets, whose main function is the management of public procurement in the country, under the terms of Law 1150 of 2007 and other regulations. that modify, add or complement it. The ANCP is the only national entity that has the power to issue rules and regulations for public procurement, as well as to establish the procedures and mechanisms for the management of public procurement in the country. The ANCP is the only national entity that has the power to issue rules and regulations for public procurement, as well as to establish the procedures and mechanisms for the management of public procurement in the country.
+
+Oversight of public procurement is the instrument to promote confidence in the State and in the public administration, and to guarantee that public resources are used efficiently and transparently, prevent public institutions from being used for corruption purposes and guarantee The use of public resources for the purposes for which they were assigned is crucial for the development of the country.
+
+The opportunity to have open data on public procurement in Colombia, and the possibility of analyzing them to answer questions of interest, is a challenge that must be addressed with the participation of public and private actors, but it is also an opportunity to improve transparency and the efficiency of public procurement in the country through the application of data analysis techniques and the generation of knowledge.
+
+This project seeks to assist Colombian government entities in the detection and prevention of improper practices in the allocation of public infrastructure contracts. Through the analysis of data from three main sources - Integrated SECOP, PACO and public data on transparency, the fight against corruption, sanctions and fines - the objective is to minimize the exposure of these entities to non-transparent, breached or corrupt contracts.
+
+
 - Manual de usuario: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/Manual%20de%20Usuario.pdf
 - Protototipo fachada: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
 - PPT: https://docs.google.com/presentation/d/166EW9AicZ0vJUdLNIAlL7KDmwhrdxPLO9oh8K_Q77XI/edit?usp=sharing
@@ -33,13 +42,6 @@ R5: La visualización interactiva y accesible para los usuarios fue sometida a p
 
 # Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
 
-_Grupo de trabajo: Alan Yovany Gasca, Christian David González, Jolman Salinas_
-
-_Proyecto aplicado en analítica de datos_
-
-_MIAD_
-
-_Universidad de los Andes_
 
 En Colombia, la contratación pública es un proceso que se realiza a través de la Agencia Nacional de Contratación Pública (ANCP), la cual es la entidad encargada de la gestión de la contratación pública en el país. La ANCP es una entidad descentralizada del orden nacional, con personería jurídica, autonomía administrativa y financiera, y patrimonio propio, que tiene como función principal la gestión de la contratación pública en el país, en los términos de la Ley 1150 de 2007 y demás normas que la modifiquen, adicionen o complementen. La ANCP es la única entidad del orden nacional que tiene la facultad de expedir normas y reglamentos para la contratación pública, así como de establecer los procedimientos y mecanismos para la gestión de la contratación pública en el país. La ANCP es la única entidad del orden nacional que tiene la facultad de expedir normas y reglamentos para la contratación pública, así como de establecer los procedimientos y mecanismos para la gestión de la contratación pública en el país.
 
