@@ -78,7 +78,7 @@ again on the filtered DataFrame to identify possible problems in the data after 
 - **Writing of results in CSV**: Finally, the resulting DataFrame, selected_df_infrastructure, is saved in a CSV file called "contracts_df_infrastructure_.csv" in the "etl_data" folder.
 
 <p align="center">
-<img src="img/contract_data_view.png"
+<img src="img/vista_datos_contratos.png"
 alt="View contracts"
 width="500" height="200">
 </p>
@@ -309,15 +309,18 @@ In this cluster, the entities award around 143 contracts with an average value o
 
 ### Clusters and their main characteristics
 
-| cluster | Average Contracts | Average Contract Value (Millions) | Average Fines | Average Value Fines (Millions) | Time since last fine (months) | Main Location |
-|---------|--------------------|------------------ ------------------|------------------|------------- ----------------------|--------------------------- -------|---------------------|
-| 1 | 35 | 914 | 0 | 0.026 | Very high | Santander, Cauca, Antioquia |
-| 2 | 148 | 193 | 0.3 | 0.962 | Very high | Antioquia, Bogota, Valle del Cauca |
-| 3 | 458 | 157 | 3.3 | 105 | 44 | Bogota, Antioquia, Valle del Cauca |
-| 4 | 4 | 360 | 0 | 0.116 | Very high | Santander, Narino |
-| 5 | 9 | 127 | 0 | 0 | - | Bogota, Antioquia, Tolima |
-| 6 | 980 | 176 | 0.4 | 12 | Very high | Bogota, Antioquia, Valle del Cauca |
-| 7 | 143 | 71 | 0 | 0.17 | High | Antioquia, Bogota, Atlantic |
+| Cluster | Contratos Promedio | Valor Promedio Contrato (Millones) | Multas Promedio | Valor Promedio Multas (Millones) | Tiempo desde última multa (meses) | Ubicación Principal |
+|---------|--------------------|------------------------------------|-----------------|-----------------------------------|----------------------------------|---------------------|
+| 1       | 35                | 914                                | 0               | 0.026                             | Muy alto                        | Santander, Cauca, Antioquia |
+| 2       | 148               | 193                                | 0.3             | 0.962                             | Muy alto                        | Antioquia, Bogotá, Valle del Cauca |
+| 3       | 458               | 157                                | 3.3             | 105                               | 44                             | Bogotá, Antioquia, Valle del Cauca |
+| 4       | 4                 | 360                                | 0               | 0.116                             | Muy alto                        | Santander, Nariño |
+| 5       | 9                 | 127                                | 0               | 0                                 | -                               | Bogotá, Antioquia, Tolima |
+| 6       | 980               | 176                                | 0.4             | 12                                | Muy alto                        | Bogotá, Antioquia, Valle del Cauca |
+| 7       | 143               | 71                                 | 0               | 0.17                              | Alto                            | Antioquia, Bogotá, Atlántico |
+
+
+
 
 
 
