@@ -103,7 +103,7 @@ In the ETL process, a dataframe of entities is also generated that allows them t
 Subsequently, these functions are applied to the selected DataFrame infrastructure_df_to generate a detailed profile of the entities involved in the infrastructure contracts. The pivoting and union of the DataFrames is performed based on the columns 'DEPARTMENT', 'ESTADO_DEL_PROCESO', 'CLASS_PROCESO', 'TIPO_PROCESO' and 'NAME_CLASS', thus obtaining an aggregated and pivoted DataFrame (infrastructure_df_aggregated_and_pivoted) that contains key information about entities and their relationship with infrastructure contracts.
 
 <p align="center">
-<img src="img/view_data_entities.png"
+<img src="img/vista_datos_entidades.png"
 alt="View entities"
 width="500" height="100">
 </p>
