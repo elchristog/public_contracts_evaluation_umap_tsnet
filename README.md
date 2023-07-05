@@ -7,385 +7,391 @@ The opportunity to have open data on public procurement in Colombia, and the pos
 This project seeks to assist Colombian government entities in the detection and prevention of improper practices in the allocation of public infrastructure contracts. Through the analysis of data from three main sources - Integrated SECOP, PACO and public data on transparency, the fight against corruption, sanctions and fines - the objective is to minimize the exposure of these entities to non-transparent, breached or corrupt contracts.
 
 
-- Manual de usuario: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/Manual%20de%20Usuario.pdf
-- Protototipo fachada: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
+- User manual: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/Manual%20de%20Usuario.pdf
+- Façade prototype: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/datos_abiertos_diagrama-Back-end.drawio.png
 - PPT: https://docs.google.com/presentation/d/166EW9AicZ0vJUdLNIAlL7KDmwhrdxPLO9oh8K_Q77XI/edit?usp=sharing
-- Dashbaord Streamlit: http://3.145.159.239:8501
-- Tabla de requerimientos: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/img/prototipo_fachada.png
+- Dashboard Streamlit: http://3.145.159.239:8501
+- Requirements table: https://github.com/cdgonzalezr1/datos_abiertos/blob/main/img/prototipo_fachada.png
 
-### Tabla de requerimientos
-
-<p align="center">
-  <img src="img/prototipo_fachada.png"
-         alt="Tabla de requerimientos"
-         width="900" height="300">
-</p>
-
-El proyecto ha logrado cumplir satisfactoriamente con todos los requerimientos y pruebas establecidos en cada aspecto evaluado. A continuación se presenta un resumen del cumplimiento por aspecto:
-
-Negocio:
-
-R1: Se cumplió al 90% con la identificación de áreas con mayor riesgo de corrupción en contrataciones, utilizando comparaciones con reportes históricos y consultando a expertos en el área. Se obtuvo un criterio sólido para medir el riesgo en los contratos públicos.
-
-R2: Se logró evaluar la evolución de los índices de transparencia a lo largo del tiempo, observando una mejora significativa en dichos índices en un periodo determinado. El cumplimiento fue del 100%.
-
-Desempeño:
-
-R3: El desarrollo de un modelo de detección de anomalías para contratos potencialmente no transparentes cumplió con las pruebas de validación cruzada y datos nuevos. El modelo mostró una precisión, sensibilidad y especificidad dentro de los rangos aceptables establecidos, superando el 80% de cumplimiento.
-
-R4: El indicador de transparencia generado utilizando modelos de aprendizaje supervisado fue validado mediante pruebas y demostró una precisión y correlación aceptables con indicadores conocidos de transparencia. El cumplimiento fue del 100%.
-
-Funcional:
-
-R5: La visualización interactiva y accesible para los usuarios fue sometida a pruebas de usabilidad con usuarios reales. Los resultados demostraron que la visualización es fácil de usar, cuenta con una navegación intuitiva y es accesible en diferentes dispositivos y navegadores. 
-
-
-# Indicador de Justa Asignación: Riesgos y Contrataciones Irregulares en Infraestructura
-
-
-En Colombia, la contratación pública es un proceso que se realiza a través de la Agencia Nacional de Contratación Pública (ANCP), la cual es la entidad encargada de la gestión de la contratación pública en el país. La ANCP es una entidad descentralizada del orden nacional, con personería jurídica, autonomía administrativa y financiera, y patrimonio propio, que tiene como función principal la gestión de la contratación pública en el país, en los términos de la Ley 1150 de 2007 y demás normas que la modifiquen, adicionen o complementen. La ANCP es la única entidad del orden nacional que tiene la facultad de expedir normas y reglamentos para la contratación pública, así como de establecer los procedimientos y mecanismos para la gestión de la contratación pública en el país. La ANCP es la única entidad del orden nacional que tiene la facultad de expedir normas y reglamentos para la contratación pública, así como de establecer los procedimientos y mecanismos para la gestión de la contratación pública en el país.
-
-La vigilancia de la contratación pública es el instrumento para promover la confianza en el Estado y en la administración pública, y para garantizar que los recursos públicos se utilicen de manera eficiente y transparente, prevenir que las insituciones públicas sean utilizadas para fines de corrupción y garantizar que los recursos públicos se destinen a los fines para los cuales fueron asignados es crucial para el desarrollo del país. 
-
-La oportunidad de contar con datos abiertos sobre contratación pública en Colombia, y la posibilidad de analizarlos para responder preguntas de interés, es un reto que se debe abordar con la participación de actores públicos y privados, pero también es una oportunidad para mejorar la transparencia y la eficiencia de la contratación pública en el país mediante la aplicación de técnicas de análisis de datos y la generación de conocimiento.
-
-> El presente proyecto busca asistir a las entidades gubernamentales de Colombia en la detección y prevención de prácticas indebidas en la asignación de contratos públicos de infraestructura. A través del análisis de datos provenientes de tres fuentes principales - SECOP Integrado, PACO y datos públicos de transparencia, lucha contra la corrupción, sanciones y multas - el objetivo es minimizar la exposición de estas entidades a contratos poco transparentes, incumplidos o corruptos.
-
-## Proceso ETL
-
-### Datos de contratación
-
-Para llevar a cabo este análisis, se implementa un proceso ETL (Extracción, Transformación y Carga) que consta de varias etapas:
-
-- **Extracción de datos**: La función read_csv_with_pyspark se utiliza para leer archivos CSV almacenados en la carpeta 'data', utilizando el separador '|'. Esta función devuelve un DataFrame de PySpark con la información del archivo CSV.
-
-- **Análisis de calidad de datos**: La función analyze_data_quality se encarga de realizar un análisis básico de la calidad de los datos en el DataFrame proporcionado. Esto incluye el conteo de registros, registros nulos y duplicados, estadísticas descriptivas para columnas numéricas y la identificación de valores atípicos basados en el rango intercuartil.
-
-- **Limpieza de nulos y duplicados**: La función limpiar_nulos_y_duplicados recibe un DataFrame y una lista de columnas. Esta función elimina los registros que contienen valores nulos en las columnas especificadas y también elimina los registros duplicados.
-
-- **Filtrado de categorías de infraestructura**: Se realiza un filtrado de datos en base a las categorías de interés relacionadas con la infraestructura, como "VIVIENDA CIUDAD Y TERRITORIO", "TRANSPORTE", "MINAS Y ENERGIA" y "AMBIENTE Y DESARROLLO SOSTENIBLE".
-
-- **Análisis de calidad de datos en el DataFrame filtrado**: Se vuelve a realizar un análisis de calidad de datos en el DataFrame filtrado para identificar posibles problemas en los datos después de la transformación.
-
-- **Limpieza de nulos y duplicados en el DataFrame filtrado**: Se utiliza la función limpiar_nulos_y_duplicados con las columnas de referencia 'REFERENCIA_CONTRATO' y 'NIT_ENTIDAD' para eliminar registros nulos y duplicados en el DataFrame paco_secop_df. Se guarda el resultado en infraestructura_df_limpio.
-
-- **Filtrado de los últimos años**: Se aplica la función filtrar_ultimos_anos al DataFrame infraestructura_df_limpio para conservar únicamente los registros correspondientes a los últimos 2 años. Se guarda el resultado en infraestructura_df_limpio_2_anos.
-
-- **Selección de columnas relevantes**: Se utiliza la función seleccionar_columnas con una lista de columnas de interés (columnas_a_conservar) para reducir el número de columnas en el DataFrame infraestructura_df_limpio_2_anos. Se guarda el resultado en infraestructura_df_seleccionado.
-
-- **Escritura de resultados en CSV**: Finalmente, el DataFrame resultante, infraestructura_df_seleccionado, se guarda en un archivo CSV llamado "contratos_infraestructura_df.csv" en la carpeta "etl_data".
+### Requirements Table
 
 <p align="center">
-  <img src="img/vista_datos_contratos.png"
-         alt="Vista contratos"
-         width="500" height="200">
+<img src="img/prototype_facade.png"
+alt="Table of requirements"
+width="900" height="300">
 </p>
-<center>Figura 1. Vista del DataFrame de contratos transformado</center>
 
-A través de este proceso ETL, se garantiza la calidad y relevancia de los datos analizados, permitiendo a las entidades gubernamentales colombianas identificar y prevenir situaciones de riesgo en la asignación de contratos públicos de infraestructura. El resultado de este análisis es un archivo CSV que contiene información detallada y depurada sobre los contratos de infraestructura en los últimos dos años, facilitando la toma de decisiones y el monitoreo de posibles irregularidades en el proceso de contratación.
+The project has managed to satisfactorily comply with all the requirements and tests established in each aspect evaluated. Below is a summary of compliance by aspect:
 
-### Datos de entidades
+Business:
 
-En el proceso de ETL segenera tambien un dataframe de entidades que permita perfilarlas para los análisis posteriores, para ello se implementan las siguientes funciones:
+R1: 90% of the areas with the highest risk of corruption in procurement were met, using comparisons with historical reports and consulting experts in the area. A solid criterion was obtained to measure the risk in public contracts.
 
-- **agregar_por_nit_entidad**: Esta función recibe un DataFrame y realiza agregaciones a nivel de entidad (NIT_ENTIDAD y NOMBRE_ENTIDAD) utilizando diversas métricas, como el número de contratos, la suma y el promedio del valor total de los contratos, el último contrato firmado, la cantidad de departamentos, estados de proceso, clases de proceso, tipos de proceso, familias y clases involucradas. La función también calcula la cantidad de meses transcurridos desde el último contrato.
+R2: It was possible to evaluate the evolution of the transparency indices over time, observing a significant improvement in said indices in a given period. Compliance was 100%.
 
-- **pivotar_por_columna**: Esta función recibe un DataFrame y una columna, y realiza una operación de pivoteo en función de los valores distintos presentes en la columna especificada. El resultado es un DataFrame con una columna por cada valor distinto encontrado, y el conteo de registros por entidad para cada valor.
+Performance:
 
-- **unir_dataframes**: Esta función recibe dos DataFrames y realiza una unión 'inner' entre ellos utilizando las columnas 'NIT_ENTIDAD' y 'NOMBRE_ENTIDAD' como claves de unión.
+R3: Development of an anomaly detection model for potentially non-transparent contracts passed cross-validation testing and new data. The model showed precision, sensitivity and specificity within the established acceptable ranges, exceeding 80% compliance.
 
-- **aggregate_multas_data**: Esta función recibe un DataFrame de multas y realiza agregaciones a nivel de entidad (nit_entidad), calculando el número de multas, la suma y el promedio del valor de las sanciones, y los meses transcurridos desde la última multa.
+A4: The transparency indicator generated using supervised learning models was validated through testing and demonstrated acceptable accuracy and correlation with known transparency indicators. Compliance was 100%.
 
-- **left_join_dataframes**: Esta función recibe dos DataFrames y las columnas clave para realizar una unión 'left' entre ellos.
+Functional:
 
-Posteriormente, se aplican estas funciones al DataFrame infraestructura_df_seleccionado para generar un perfil detallado de las entidades involucradas en los contratos de infraestructura. Se realiza el pivoteo y la unión de los DataFrames en función de las columnas 'DEPARTAMENTO', 'ESTADO_DEL_PROCESO', 'CLASE_PROCESO', 'TIPO_PROCESO' y 'NOMBRE_CLASE', obteniendo así un DataFrame agregado y pivotado (infraestructura_df_agregado_y_pivotado) que contiene información clave sobre las entidades y su relación con los contratos de infraestructura.
+R5: The interactive and accessible visualization for users was subjected to usability tests with real users. The results showed that the visualization is easy to use, has intuitive navigation, and is accessible on different devices and browsers.
+
+
+# Fair Assignment Indicator: Risks and Irregular Contracts in Infrastructure
+
+
+In Colombia, public procurement is a process that is carried out through the National Public Procurement Agency (ANCP), which is the entity in charge of managing public procurement in the country. The ANCP is a decentralized entity of the national order, with legal status, administrative and financial autonomy, and its own assets, whose main function is the management of public procurement in the country, under the terms of Law 1150 of 2007 and other regulations. that modify, add or complement it. The ANCP is the only national entity that has the power to issue rules and regulations for public procurement, as well as to establish the procedures and mechanisms for the management of public procurement in the country. The ANCP is the only national entity that has the power to issue rules and 
+regulations for public procurement, as well as to establish the procedures and mechanisms for the management of public procurement in the country.
+
+Oversight of public procurement is the instrument to promote confidence in the State and in the public administration, and to guarantee that public resources are used efficiently and transparently, prevent public institutions from being used for corruption purposes and guarantee The use of public resources for the purposes for which they were assigned is crucial for the development of the country.
+
+The opportunity to have open data on public procurement in Colombia, and the possibility of analyzing them to answer questions of interest, is a challenge that must be addressed with the participation of public and private actors, but it is also an opportunity to improve transparency and the efficiency of public procurement in the country through the application of data analysis techniques and the generation of knowledge.
+
+> This project seeks to assist Colombian government entities in the detection and prevention of improper practices in the allocation of public infrastructure contracts. Through the analysis of data from three main sources - Integrated SECOP, PACO and public data on transparency, the fight against corruption, sanctions and fines - the objective is to minimize the exposure of these entities to non-transparent, breached or corrupt contracts.
+
+## ETL process
+
+### Contract data
+
+To carry out this analysis, an ETL (Extraction, Transformation and Load) process is implemented that consists of several stages:
+
+- **Data Extraction**: The read_csv_with_pyspark function is used to read CSV files stored in the 'data' folder, using the '|' separator. This function returns a PySpark DataFrame with the information from the CSV file.
+
+- **Data quality analysis**: The analyze_data_quality function performs a basic data quality analysis on the provided DataFrame. This includes record count, null and duplicate records, descriptive statistics for numeric columns, and identification of outliers based on interquartile range.
+
+- **Cleanup of nulls and duplicates**: The function clean_nulls_and_duplicates receives a DataFrame and a list of columns. This function removes records that contain null values in the specified columns and also removes duplicate records.
+
+- **Infrastructure category filtering**: Data is filtered based on the categories of interest related to the infrastructure, such as "HOUSING, CITY AND LAND", "TRANSPORTATION", "MINES AND ENERGY" and "ENVIRONMENT AND SUSTAINABLE DEVELOPMENT".
+
+- **Data quality analysis on the filtered DataFrame**: A data quality analysis is performed 
+again on the filtered DataFrame to identify possible problems in the data after the transformation.
+
+- **Cleaning of nulls and duplicates in the filtered DataFrame**: The function clean_nulls_and_duplicates is used with the reference columns 'REFERENCIA_CONTRATO' and 'NIT_ENTIDAD' to eliminate null and duplicate records in the paco_secop_df DataFrame. The result is saved in infrastructure_df_limpio.
+
+- **Filtering of the last years**: The function filter_last_years is applied to the DataFrame infraestructura_df_limpio to keep only the records corresponding to the last 2 years. The result is saved in infrastructure_df_limpio_2_anos.
+
+- **Selection of relevant columns**: The select_columns function is used with a list of columns of interest (columns_a_preservar) to reduce the number of columns in the DataFrame infrastructure_df_clean_2_years. The result is saved in infrastructure_df_selected.
+
+- **Writing of results in CSV**: Finally, the resulting DataFrame, selected_df_infrastructure, is saved in a CSV file called "contracts_df_infrastructure_.csv" in the "etl_data" folder.
 
 <p align="center">
-  <img src="img/vista_datos_entidades.png"
-         alt="Vista entidades"
-         width="500" height="100">
+<img src="img/contract_data_view.png"
+alt="View contracts"
+width="500" height="200">
 </p>
-<center>Figura 2. Vista del DataFrame de entidades transformado</center>
+<center>Figure 1. View of the transformed contracts DataFrame</center>
 
-Finalmente, se realiza una unión 'left' entre el DataFrame de entidades agregado y pivotado y el DataFrame de multas agregado, utilizando la columna 'nit_entidad' como clave de unión. El resultado es un DataFrame que contiene información detallada y depurada sobre las entidades involucradas en contratos de infraestructura, incluyendo información sobre multas y sanciones, lo que facilita la toma de decisiones y el monitoreo de posibles irregularidades en el proceso de contratación.
+Through this ETL process, the quality and relevance of the analyzed data is guaranteed, allowing Colombian government entities to identify and prevent risk situations in the allocation of public infrastructure contracts. The result of this analysis is a CSV file that contains detailed and refined information on infrastructure contracts in the last two years, facilitating decision-making and monitoring of possible irregularities in the contracting process.
 
-## Reducción de dimensionalidad
+### Entity data
 
-En el presente estudio, nos enfrentamos al desafío de analizar un conjunto de datos voluminoso y de alta dimensión que abarca información detallada sobre las entidades gubernamentales de Colombia y los contratos públicos de infraestructura que otorgan. Dado el volumen y la complejidad de los datos, decidimos aplicar técnicas de reducción de dimensionalidad para facilitar el análisis y mejorar la eficiencia computacional sin comprometer la calidad de la información obtenida.
+In the ETL process, a dataframe of entities is also generated that allows them to be profiled for subsequent analysis, for which the following functions are implemented:
 
-La reducción de dimensionalidad es un enfoque ampliamente utilizado en la ciencia de datos para simplificar conjuntos de datos de alta dimensión, conservando la mayor parte de la información relevante y manteniendo las relaciones subyacentes entre las variables. Al reducir la cantidad de características que representan a las entidades y sus contratos, nuestro objetivo es optimizar el tiempo de cálculo y mejorar la capacidad para perfilar las entidades según las características de los contratos asignados.
+- **agregar_by_nit_entidad**: This function receives a DataFrame and performs aggregations at the entity level (ENTITY_NIT and ENTITY_NAME) using various metrics, such as the number of contracts, the sum and average of the total value of the contracts, the last contract signed , the number of departments, process states, process classes, process types, families, and classes involved. The function also calculates the number of months since the last contract.
 
-Para lograr esto, empleamos diversas técnicas de reducción de dimensionalidad, incluidas PCA (Análisis de Componentes Principales), LDA (Análisis Discriminante Lineal), t-SNE (Incorporación de Vecinos Estocásticos Distribuidos en T) y UMAP (Proyección Uniforme de Aproximación de Manifold), con el fin de evaluar y comparar su eficacia en función de la varianza explicada y la preservación de las relaciones de proximidad entre los puntos. A través de una cuidadosa selección de la técnica más apropiada, nos esforzamos por conservar la mayor proporción de información en el conjunto de datos reducido, permitiendo una interpretación significativa y una toma de decisiones informada en el contexto de la contratación pública en Colombia.
+- **pivot_by_column**: This function receives a DataFrame and a column, and performs a pivot operation based on the distinct values present in the specified column. The result is a DataFrame with a column for each distinct value found, and the record count per entity for each value.
 
-Al aplicar estos métodos de reducción de dimensionalidad, esperamos obtener información valiosa sobre las entidades y sus prácticas de contratación, lo que permitirá a las autoridades detectar y prevenir la exposición a prácticas poco transparentes, incumplidas o corruptas en la asignación de contratos públicos de infraestructura. Al equilibrar la necesidad de mantener la información relevante y reducir el tiempo de cómputo, este enfoque nos permite abordar de manera efectiva el problema de la transparencia y la integridad en la contratación pública, contribuyendo al desarrollo sostenible y al bienestar de la sociedad colombiana.
+- **unir_dataframes**: This function receives two DataFrames and performs an 'inner' union between them using the columns 'NIT_ENTIDAD' and 'NOMBRE_ENTIDAD' as union keys.
 
-> El proceso de reducción de dimensionalidad es un componente clave en el proyecto de detección y prevención de prácticas indebidas en la asignación de contratos públicos de infraestructura en Colombia. Este enfoque se emplea para disminuir la complejidad del conjunto de datos, facilitando el análisis y la visualización de los patrones subyacentes en los datos. En el proyecto, se aplican diversas técnicas de reducción de dimensionalidad, como UMAP, PCA, t-SNE y LDA, para lograr este propósito.
+- **aggregate_multas_data**: This function receives a DataFrame of fines and performs aggregations at the entity level (nit_entity), calculating the number of fines, the sum and the average value of the fines, and the months elapsed since the last fine .
 
-### Importación de datos y preprocesamiento
-Inicialmente, se lee el archivo CSV resultante del proceso ETL y se crea un DataFrame de pandas con la información. Luego, se aplica la función apply_standard_scaler para escalar las características numéricas y estandarizarlas, lo que facilita la comparación entre ellas.
+- **left_join_dataframes**: This function receives two DataFrames and the key columns to perform a 'left' join between them.
 
-### UMAP
-Uniform Manifold Approximation and Projection (UMAP) es una técnica de reducción de dimensionalidad no lineal que permite visualizar estructuras de alta dimensión en un espacio bidimensional o tridimensional. En este caso, se emplea la función apply_umap para aplicar el algoritmo UMAP al DataFrame escalado, ajustando el modelo y transformando los datos en función de sus componentes principales. La varianza explicada por cada componente se calcula y se representa gráficamente.
+Subsequently, these functions are applied to the selected DataFrame infrastructure_df_to generate a detailed profile of the entities involved in the infrastructure contracts. The pivoting and union of the DataFrames is performed based on the columns 'DEPARTMENT', 'ESTADO_DEL_PROCESO', 'CLASS_PROCESO', 'TIPO_PROCESO' and 'NAME_CLASS', thus obtaining an aggregated and pivoted DataFrame (infrastructure_df_aggregated_and_pivoted) that contains key information about entities and their relationship with infrastructure contracts.
 
 <p align="center">
-  <img src="img/umap.png"
-         alt="UMAP"
-         width="500" height="300">
+<img src="img/view_data_entities.png"
+alt="View entities"
+width="500" height="100">
 </p>
-<center>Figura 3. Vista de los 3 primeros componentes UMAP</center>
+<center>Figure 2. View of the transformed Entity DataFrame</center>
+
+Finally, a 'left' join is performed between the aggregated and pivoted Entity DataFrame and the aggregated Fines DataFrame, using the 'nit_entity' column as the join key. The result is a DataFrame that contains detailed and refined information on the entities involved in infrastructure contracts, including information on fines and sanctions, which facilitates decision-making and the monitoring of possible irregularities in the contracting process.
+
+## Dimensionality reduction
+
+In the present study, we are faced with the challenge of analyzing a voluminous, high-dimensional data set that encompasses detailed information about government entities in Colombia and the public infrastructure contracts they award. Given the volume and complexity of the data, we decided to apply dimensionality reduction techniques to facilitate analysis and improve computational efficiency without compromising the quality of the information obtained.
+
+Dimensionality reduction is a widely used approach in data science to simplify high-
+dimensional data sets while preserving most of the relevant information and maintaining the underlying relationships between variables. By reducing the number of features that represent entities and their contracts, our goal is to optimize computation time and improve the ability to profile entities based on the characteristics of the assigned contracts.
+
+To achieve this, we employ various dimensionality reduction techniques, including PCA (Principal Component Analysis), LDA (Linear Discriminant Analysis), t-SNE (T-Distributed Stochastic Neighbor Incorporation) and UMAP (Uniform Manifold Approximation Projection). , in order to evaluate and compare its effectiveness based on the explained variance and the preservation of the proximity relationships between the points. Through careful selection of the most appropriate technique, we strive to retain the highest proportion of information in the reduced data set, allowing for meaningful interpretation and informed decision-making in the context of public procurement in Colombia.
+
+By applying these dimensionality reduction methods, we hope to obtain valuable information about entities and their contracting practices, which will allow authorities to detect and prevent exposure to non-transparent, non-compliant, or corrupt practices in the allocation of public infrastructure contracts. By balancing the need to keep information relevant and reducing computation time, this approach allows us to effectively address the issue of transparency and integrity in public procurement, contributing to sustainable development and the well-being of Colombian society.
+
+> The dimensionality reduction process is a key component in the project for the detection and prevention of improper practices in the allocation of public infrastructure contracts in Colombia. This approach is used to decrease the complexity of the data set, making it easier to analyze and visualize the underlying patterns in the data. In the project, various dimensionality reduction techniques such as UMAP, PCA, t-SNE and LDA are applied to achieve this purpose.
+
+### Data import and preprocessing
+Initially, the CSV file resulting from the ETL process is read and a pandas DataFrame is created with the information. The apply_standard_scaler function is then applied to scale the numeric features and standardize them, making it easy to compare between them.
+
+###UMAP
+Uniform Manifold Approximation and Projection (UMAP) is a nonlinear dimensionality reduction technique that enables high-dimensional structures to be visualized in two- or three-dimensional space. In this case, the apply_umap function is used to apply the UMAP algorithm to the scaled DataFrame, fitting the model and transforming the data based on its principal components. The variance explained by each component is calculated and graphically represented.
+
+<p align="center">
+<img src="img/umap.png"
+alt="UMAP"
+width="500" height="300">
+</p>
+<center>Figure 3. View of the first 3 UMAP components</center>
 
 
 ### PCA
-Principal Component Analysis (PCA) es una técnica lineal de reducción de dimensionalidad que busca encontrar las direcciones de mayor varianza en los datos de alta dimensión. Se aplica la función apply_pca al DataFrame escalado, ajustando el modelo PCA y transformando los datos en función de sus componentes principales. La varianza explicada acumulada se calcula y se representa gráficamente.
+Principal Component Analysis (PCA) is a linear dimensionality reduction technique that seeks to find the directions of greatest variance in high-dimensional data. The apply_pca function is applied to the scaled DataFrame, fitting the PCA model and transforming the data based on its principal components. The cumulative explained variance is calculated and plotted.
 
 <p align="center">
-  <img src="img/pca.png"
-         alt="PCA"
-         width="500" height="300">
+<img src="img/pca.png"
+alt="PCA"
+width="500" height="300">
 </p>
-<center>Figura 4. Vista de los 3 primeros componentes PCA</center>
+<center>Figure 4. View of the first 3 PCA components</center>
 
 ### t-SNE
-t-Distributed Stochastic Neighbor Embedding (t-SNE) es una técnica no lineal de reducción de dimensionalidad que busca preservar las relaciones de proximidad entre los puntos en un espacio de alta dimensión. Se aplica la función apply_tsne al DataFrame escalado para ajustar el modelo t-SNE y transformar los datos en función de sus componentes principales.
+t-Distributed Stochastic Neighbor Embedding (t-SNE) is a nonlinear dimensionality reduction technique that seeks to preserve proximity relationships between points in a high-dimensional space. The apply_tsne function is applied to the scaled DataFrame to fit the t-SNE model and transform the data based on its principal components.
 
 <p align="center">
-  <img src="img/tsne.png"
-         alt="TSNE"
-         width="500" height="300">
+<img src="img/tsne.png"
+alt="TSNE"
+width="500" height="300">
 </p>
-<center>Figura 5. Vista de los 3 primeros componentes t-SNE</center>
+<center>Figure 5. View of the first 3 t-SNE components</center>
 
 ### LDA
-Linear Discriminant Analysis (LDA) es una técnica lineal de reducción de dimensionalidad que busca maximizar la separabilidad entre clases en un espacio de alta dimensión. Se aplica la función apply_lda al DataFrame escalado, proporcionando las etiquetas de clase y ajustando el modelo LDA. La varianza explicada acumulada se calcula y se representa gráficamente.
+Linear Discriminant Analysis (LDA) is a linear dimensionality reduction technique that seeks to maximize the separability between classes in a high-dimensional space. The apply_lda function is applied to the scaled DataFrame, providing the class labels and fitting the LDA model. The cumulative explained variance is calculated and plotted.
 
 <p align="center">
-  <img src="img/lda.png"
-         alt="LDA"
-         width="500" height="300">
+<img src="img/lda.png"
+alt="LDA"
+width="500" height="300">
 </p>
-<center>Figura 6. Vista de los 3 primeros componentes LDA</center>
+<center>Figure 6. View of the first 3 LDA components</center>
 
-Después de un exhaustivo proceso de evaluación y comparación, hemos seleccionado t-SNE como el método más adecuado para nuestro propósito, ya que maximiza la varianza acumulada y permite detectar patrones de agrupación de manera más eficiente que las otras técnicas evaluadas. La capacidad de t-SNE para preservar las relaciones de proximidad entre puntos en un espacio de menor dimensión facilita la identificación de grupos y la comprensión de las relaciones subyacentes entre las entidades y sus contratos.
+After an exhaustive evaluation and comparison process, we have selected t-SNE as the most suitable method for our purpose, since it maximizes the accumulated variance and 
+allows to detect clustering patterns more efficiently than the other evaluated techniques. t-SNE's ability to preserve proximity relationships between points in a lower-dimensional space makes it easier to identify groups and understand the underlying relationships between entities and their contracts.
 
 
-| Método | Varianza Acumulada (%) |
+| Method | Cumulative Variance (%) |
 |--------|------------------------|
-| PCA    | 67%                    |
-| LDA    | 65%                    |
-| t-SNE  | N/A                    |
-| UMAP   | N/A                    |
+| PCA | 67% |
+| ADL | 65% |
+| t-SNE | N/A |
+| UMAP | N/A |
 
 
-Al elegir t-SNE como nuestro enfoque principal de reducción de dimensionalidad, buscamos aprovechar sus ventajas en términos de maximización de la varianza acumulada y detección de patrones de agrupación. Esto nos permitirá analizar de manera efectiva el conjunto de datos y descubrir cualquier patrón que pueda indicar prácticas inadecuadas en la contratación pública. Al identificar estos patrones, podemos proporcionar información valiosa a las autoridades para que tomen medidas preventivas y correctivas, lo que contribuirá a mejorar la transparencia y la integridad en la contratación pública en Colombia.
+By choosing t-SNE as our primary dimensionality reduction approach, we sought to take advantage of its advantages in terms of cumulative variance maximization and clustering pattern detection. This will allow us to effectively analyze the data set and uncover any patterns that may indicate inappropriate practices in public procurement. By identifying these patterns, we can provide valuable information to the authorities so that they can take preventive and corrective measures, which will contribute to improving transparency and integrity in public procurement in Colombia.
 
 
-### Visualización en 3D
-La función plot_3d se utiliza para visualizar las tres primeras componentes principales de los datos transformados en un gráfico tridimensional. Esto facilita la identificación de agrupaciones y patrones en los datos, lo que a su vez puede ser útil para detectar y prevenir prácticas indebidas en la asignación de contratos públicos de infraestructura en Colombia.
+### 3D visualization
+The plot_3d function is used to display the first three principal components of the transformed data in a three-dimensional plot. This facilitates the identification of clusters and patterns in the data, which in turn can be useful for detecting and preventing improper practices in the allocation of public infrastructure contracts in Colombia.
 
-A medida que se aplican estas técnicas de reducción de dimensionalidad, es importante evaluar y comparar su eficacia en función de la varianza explicada y la capacidad para preservar las relaciones de proximidad entre los puntos. Algunas técnicas, como PCA y LDA, son lineales y pueden no ser adecuadas para capturar relaciones no lineales en los datos. Por otro lado, UMAP y t-SNE son técnicas no lineales que pueden ser más efectivas en estos casos. Sin embargo, es fundamental realizar pruebas y comparaciones exhaustivas para determinar cuál de estas técnicas es la más adecuada en función de los objetivos y las características del conjunto de datos específico.
+As these dimensionality reduction techniques are applied, it is important to evaluate and compare their effectiveness based on explained variance and the ability to preserve proximity relationships between points. Some techniques, such as PCA and LDA, are linear and may not be suitable for capturing nonlinear relationships in data. On the other hand, UMAP and t-SNE are nonlinear techniques that may be more effective in these cases. However, extensive testing and comparison is essential to determine which of these techniques is most appropriate based on the objectives and characteristics of the specific data set.
 
-Además, la visualización en 3D de las componentes principales resultantes puede ser útil para identificar agrupaciones y patrones en los datos. Estos patrones pueden proporcionar información valiosa para las entidades gubernamentales de Colombia que otorgan contratos públicos de infraestructura, ayudándoles a detectar y prevenir la exposición a prácticas indebidas en la asignación de contratos. En última instancia, este enfoque de reducción de dimensionalidad y análisis puede contribuir a garantizar una mayor transparencia, eficiencia y rendición de cuentas en la contratación pública en Colombia.
+Additionally, 3D visualization of the resulting principal components can be helpful in identifying clusters and patterns in the data. These patterns can provide valuable information for Colombian government entities that award public infrastructure contracts, helping them to detect and prevent exposure to improper practices in the allocation of contracts. Ultimately, this dimensionality reduction and analysis approach can help ensure greater transparency, efficiency, and accountability in public procurement in Colombia.
 
-## Metodologías de clustering
+## Clustering methodologies
 
-Se aplicaron tres técnicas de clustering: K-means, Agglomerative Clustering y OPTICS. A continuación, se presenta una descripción detallada de cada técnica y su aplicación en el proyecto:
+Three clustering techniques were applied: K-means, Agglomerative Clustering and OPTICS. Below is a detailed description of each technique and its application in the project:
 
 ### K-means:
-K-means es un algoritmo de clustering basado en la partición que agrupa los datos en K clusters, minimizando la suma de las distancias al cuadrado entre los puntos y los centroides de los clusters a los que pertenecen. La función find_optimal_clusters se utiliza para determinar el número óptimo de clusters a utilizar en el algoritmo K-means. Se calcula la suma de las distancias al cuadrado dentro del cluster (WCSS) para un rango de números de clusters, y se grafica la relación entre el número de clusters y la WCSS en un gráfico de codo. El número óptimo de clusters se elige en el punto en el que se observa un cambio significativo en la tasa de disminución de la WCSS.
+K-means is a partition-based clustering algorithm that groups data into K clusters, minimizing the sum of the squared distances between points and the centroids of the clusters to which they belong. The find_optimal_clusters function is used to determine the optimal number of clusters to use in the K-means algorithm. The within-cluster distance sum squared (WCSS) is calculated for a range of cluster numbers, and the relationship between the number of clusters and the WCSS is plotted on a knee plot. The optimal number of clusters is chosen at the point where a significant change in the rate of decline of the WCSS is observed.
 
 <p align="center">
-  <img src="img/elbow_kmeans.png"
-         alt="Elbow"
-         width="500" height="300">
+<img src="img/elbow_kmeans.png"
+alt="Elbow"
+width="500" height="300">
 </p>
-<center>Figura 7. Elbow Kmeans</center>
+<center>Figure 7. Elbow Kmeans</center>
 
-se utilizó el método del codo (Elbow Method), que consiste en calcular la suma de las distancias al cuadrado (WCSS) entre los puntos de cada cluster y su centroide para diferentes valores de K. A medida que aumenta el número de clusters, Al aplicar el método del codo en este análisis, se graficó la WCSS en función del número de clusters, y se observó que el punto de inflexión, es decir, el punto en el que el cambio en la WCSS se vuelve menos pronunciado, ocurrió en K=7. Por lo tanto, se decidió utilizar 7 clusters para el algoritmo K-means en este estudio.
+The Elbow Method was used, which consists of calculating the sum of the squared distances (WCSS) between the points of each cluster and its centroid for different values of K. As the number of clusters increases, Al Applying the elbow method in this analysis, the WCSS was plotted as a function of the number of clusters, and it was observed that the inflection point, that is, the point at which the change in the WCSS becomes less pronounced, occurred at K =7. Therefore, it was decided to use 7 clusters for the K-means algorithm in this study.
 
-Con base en esta selección, se aplicó el algoritmo K-means con 7 clusters y se obtuvieron agrupaciones de entidades gubernamentales que permiten identificar patrones y perfiles de riesgo en la contratación pública en Colombia.
+Based on this selection, the K-means algorithm was applied with 7 clusters and groupings of government entities were obtained that allow identifying patterns and risk profiles in public procurement in Colombia.
 
 <p align="center">
-  <img src="img/clusters_kmeans.png"
-         alt="clusters_kmeans"
-         width="500" height="300">
+<img src="img/clusters_kmeans.png"
+alt="clusters_kmeans"
+width="500" height="300">
 </p>
-<center>Figura 8. clusters_kmeans</center>
+<center>Figure 8. clusters_kmeans</center>
 
 ### Agglomerative Clustering:
-El clustering aglomerativo es un enfoque jerárquico que construye un árbol de clusters (dendrograma) fusionando los clusters más cercanos en cada etapa. La función perform_agglomerative_clustering_and_plot_dendrogram se utiliza para aplicar el algoritmo de clustering aglomerativo y trazar el dendrograma resultante. El número óptimo de clusters se elige en función de la estructura del dendrograma, y se utiliza la técnica de 'ward' para calcular las distancias entre los clusters.
+Agglomerative clustering is a hierarchical approach that builds a cluster tree (dendrogram) by merging the closest clusters at each stage. The perform_agglomerative_clustering_and_plot_dendrogram function is used to apply the agglomerative clustering algorithm and plot the resulting dendrogram. The optimal number of clusters is chosen based on the structure of the dendrogram, and the 'ward' technique is used to calculate the distances between the clusters.
 
 <p align="center">
-  <img src="img/dendrogram.png"
-         alt="dendrogram"
-         width="500" height="300">
+<img src="img/dendrogram.png"
+alt="dendrogram"
+width="500" height="300">
 </p>
-<center>Figura 9. dendrograma</center>
+<center>Figure 9. dendrogram</center>
 
-Para determinar el número óptimo de clusters en el enfoque de clustering jerárquico, se utilizó el dendrograma, que es una representación gráfica en forma de árbol que ilustra la disposición de los clusters y las relaciones jerárquicas entre ellos. Al observar el dendrograma, se pueden identificar los clusters mediante la selección de un nivel de corte en el eje vertical, que indica la distancia o disimilitud en la que se fusionan los clusters.
+To determine the optimal number of clusters in the hierarchical clustering approach, the dendrogram was used, which is a graphical representation in the form of a tree that illustrates the arrangement of the clusters and the hierarchical relationships between them. Looking at the dendrogram, clusters can be identified by selecting a cutoff level on the vertical axis, which indicates the distance or dissimilarity at which the clusters merge.
 
-En este análisis, se empleó el enfoque de clustering jerárquico aglomerativo con la medida de distancia euclidiana y el método de enlace de Ward, que minimiza la varianza dentro de los clusters. Al graficar el dendrograma y analizar las fusiones de los clusters, se determinó que el número óptimo de clusters para este caso era de 7. Esta selección se basó en la observación de la altura en la que se producían fusiones significativas y la coherencia de los clusters resultantes.
+In this analysis, the agglomerative hierarchical clustering approach was used with the Euclidean distance measure and the Ward linkage method, which minimizes the variance within clusters. By plotting the dendrogram and analyzing the mergers of the clusters, it was determined that the optimal number of clusters for this case was 7. This selection was based on the observation of the height at which significant mergers occurred and the coherence of the clusters. resulting.
 
 <p align="center">
-  <img src="img/clusters_hiherarchic.png"
-         alt="clusters_hiherarchic"
-         width="500" height="300">
+<img src="img/clusters_hiherarchic.png"
+alt="clusters_hiherarchic"
+width="500" height="300">
 </p>
-<center>Figura 10. clusters hiherarchic</center>
+<center>Figure 10. hiherarchic clusters</center>
 
 ### OPTICS (Ordering Points To Identify the Clustering Structure):
-El algoritmo OPTICS es un enfoque basado en la densidad que identifica automáticamente los clusters en función de la densidad de los puntos en el espacio de datos. La función perform_optics_clustering se utiliza para aplicar el algoritmo OPTICS. Para determinar el valor óptimo de eps (para el alcance de búsqueda local) y min_samples (para el número mínimo de puntos en un cluster), se emplea un enfoque basado en el cálculo de las distancias k-vecinas. Se calcula la matriz de distancias k-vecinas y se grafica la relación entre las distancias k-vecinas y los puntos en el espacio de datos. El valor óptimo de eps se selecciona en función de la gráfica de distancias k-vecinas, mientras que min_samples se establece en función del tamaño del conjunto de datos (un 1% del total de puntos).
+The OPTICS algorithm is a density-based approach that automatically identifies clusters based on the density of points in the data space. The perform_optics_clustering function is used to apply the OPTICS algorithm. To determine the optimal value of eps (for the local search scope) and min_samples (for the minimum number of points in a cluster), an approach based on calculating k-neighbor distances is used. The k-neighbor distance matrix is computed and the relationship between the k-neighbor distances and the points in the data space is plotted. The optimal value of eps is selected based on the k-neighbor distance plot, while min_samples is set based on the size of the data set (1% of the total points).
 
 <p align="center">
-  <img src="img/k_distance_optics.png"
-         alt="k_distance_optics"
-         width="500" height="300">
+<img src="img/k_distance_optics.png"
+alt="k_distance_optics"
+width="500" height="300">
 </p>
-<center>Figura 11. k_distance_optics</center>
+<center>Figure 11. k_distance_optics</center>
 
-Un aspecto clave en la aplicación del algoritmo OPTICS es la determinación del valor óptimo de epsilon (ε), que es el radio máximo alrededor de un punto para considerar a otros puntos como parte de su vecindario. Para encontrar este valor, se utilizó un enfoque basado en k vecinos. Concretamente, se empleó el método de los k vecinos más cercanos (k-nearest neighbors, k-NN) para calcular las distancias entre las observaciones del conjunto de datos.
+A key aspect in the application of the OPTICS algorithm is the determination of the optimal value of epsilon (ε), which is the maximum radius around a point to consider other points as 
+part of its neighborhood. To find this value, an approach based on k neighbors was used. Specifically, the k-nearest neighbors (k-NN) method was used to calculate the distances between the observations in the data set.
 
-Se ajustó un modelo de k vecinos más cercanos utilizando un valor predefinido de k, y se calcularon las distancias entre cada punto y su k-ésimo vecino más cercano. Estas distancias se ordenaron de manera ascendente y se graficaron en un gráfico de k-distancias. Al observar este gráfico, se identificó un "codo" o punto de inflexión, que indicaba el valor de epsilon óptimo para ser utilizado en el algoritmo OPTICS.
+A k-nearest neighbor model was fitted using a predefined value of k, and the distances between each point and its k-nearest neighbor were calculated. These distances were ordered in ascending order and plotted on a k-distance plot. Looking at this graph, a "knee" or inflection point was identified, which indicated the optimal epsilon value to be used in the OPTICS algorithm.
 
 <p align="center">
-  <img src="img/optics.png"
-         alt="optics"
-         width="500" height="300">
+<img src="img/optics.png"
+alt="optics"
+width="500" height="300">
 </p>
-<center>Figura 12. clusters optics</center>
+<center>Figure 12. optical clusters</center>
 
-Una vez que se han aplicado las técnicas de clustering, se evalúa la calidad y la interpretabilidad de los resultados obtenidos. Para ello, se emplean métricas como el coeficiente de silueta y se analizan las características de los clusters identificados.
+Once the clustering techniques have been applied, the quality and interpretability of the results obtained is evaluated. For this, metrics such as the silhouette coefficient are used and the characteristics of the identified clusters are analyzed.
 
-| Algoritmo de Clustering | Coeficiente de Silueta |
+| Clustering Algorithm | Silhouette Coefficient |
 |--------|------------------------|
-| K-means    | 73%                    |
-| Clustering Jerárquico    | 72%                    |
-| OPTICS  | 45%                   |
+| K-means | 73% |
+| Hierarchical Clustering | 72% |
+| OPTICS | 45% |
 
 
-Tras la aplicación de los algoritmos K-means y clustering jerárquico, se observó que los resultados de los coeficientes de silueta y la estructura de los clusters eran muy similares entre ambos métodos. Esto indica que ambos algoritmos lograron identificar patrones y agrupaciones consistentes en el conjunto de datos.
+After applying the K-means and hierarchical clustering algorithms, it was observed that the results of the silhouette coefficients and the cluster structure were very similar between both methods. This indicates that both algorithms managed to identify consistent patterns and clusters in the data set.
 
-Por otro lado, el algoritmo OPTICS también fue capaz de detectar grupos pequeños y realmente diferentes en el conjunto de datos. Sin embargo, este algoritmo dejó una masa muy grande de observaciones sin diferenciar de manera adecuada, lo que sugiere que OPTICS no fue tan efectivo para segmentar y extraer información útil de este conjunto de datos en particular.
+On the other hand, the OPTICS algorithm was also able to detect small and really different groups in the data set. However, this algorithm left a very large mass of observations without adequately differentiating, suggesting that OPTICS was not as effective in segmenting and extracting useful information from this particular dataset.
 
-Teniendo en cuenta estos resultados, se decidió seleccionar el algoritmo K-means como el método de agrupamiento final para este proyecto. La elección de K-means se basa en su capacidad para generar clusters cohesivos y bien separados, como lo demuestran los coeficientes de silueta similares a los del clustering jerárquico, y en su eficiencia computacional en comparación con los otros dos algoritmos. Además, K-means permite una mayor diferenciación de la masa de observaciones que no pudo ser segmentada adecuadamente por el algoritmo OPTICS.
+Taking these results into account, it was decided to select the K-means algorithm as the final clustering method for this project. The choice of K-means is based on its ability to generate well-separated and cohesive clusters, as demonstrated by silhouette coefficients similar to those of hierarchical clustering, and on its computational efficiency compared to the other two algorithms. Furthermore, K-means allows a greater differentiation of the mass of observations that could not be adequately segmented by the OPTICS algorithm.
 
-### Descrpción de los clusters
+### Description of the clusters
 
-#### Cluster 1 
-> Pocos Contratos de Monto Alto con Nulas Multas:
-Este cluster agrupa a entidades que otorgan en promedio 35 contratos con un valor promedio aproximado de 914 millones de pesos. Han sido multados en promedio 0 veces con un valor promedio de multas de alrededor de 26 mil pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Santander, Cauca y Antioquia.
+#### Cluster 1
+> Few High Amount Contracts with Null Fines:
+This cluster groups entities that award an average of 35 contracts with an approximate average value of 914 million pesos. They have been fined on average 0 times with an average value of fines of around 26 thousand pesos. The time since the last fine is too long. They operate mainly in Santander, Cauca and Antioquia.
 
 #### Cluster 2
-> Contratos Medianos de Moderado Alto con Moderadas Multas:
-En este cluster, las entidades otorgan alrededor de 148 contratos con un valor promedio de 193 millones de pesos. Han sido multadas en promedio 0.3 veces con un valor promedio de multas de alrededor de 962 mil pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Antioquia, Bogotá y Valle del Cauca.
+> Medium to Moderate High Contracts with Moderate Fines:
+In this cluster, the entities award around 148 contracts with an average value of 193 million pesos. They have been fined an average of 0.3 times with an average value of fines of around 962 thousand pesos. The time since the last fine is too long. They operate mainly in Antioquia, Bogotá and Valle del Cauca.
 
 #### Cluster 3
-> Muchos Contratos de Monto Moderado con Altas Multas:
-Este cluster incluye entidades que otorgan en promedio 458 contratos con un valor promedio de 157 millones de pesos. Han sido multadas en promedio 3.3 veces (El más alto) con un valor promedio de multas de alrededor de 105 millones de pesos. El tiempo desde la última multa es de aproximadamente 44 meses. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+> Many Moderate Amount Contracts with High Fines:
+This cluster includes entities that award an average of 458 contracts with an average value of 157 million pesos. They have been fined on average 3.3 times (the highest) with an average value of fines of around 105 million pesos. The time since the last fine is approximately 44 months. They operate mainly in Bogotá, Antioquia and Valle del Cauca.
 
 
 #### Cluster 4
-> Pocos Contratos de Monto Medio Alto Mínimos con Mínimas Multas:
-Las entidades en este cluster otorgan en promedio 4 contratos con un valor promedio de aproximadamente 360 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de alrededor de 116 mil pesos. El tiempo desde la última multa es de aproximadamente muy alto. Operan principalmente en Santander y Nariño.
+> Few Medium-High Minimum Amount Contracts with Minimum Fines:
+The entities in this cluster award an average of 4 contracts with an average value of approximately 360 million pesos. They have been fined on average 0 times with an average value of fines of around 116 thousand pesos. The time since the last ticket is approximately very high. They operate mainly in Santander and Nariño.
 
 
 #### Cluster 5
-> Contratos Bajos de Monto Medio con Multas Nulas:
-Este cluster agrupa a entidades que otorgan en promedio 9 contratos con un valor promedio de aproximadamente 127 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de 0 millones de pesos. Operan principalmente en Bogotá, Antioquia y Tolima.
+> Low Medium Amount Contracts with Null Fines:
+This cluster groups entities that award an average of 9 contracts with an average value of approximately 127 million pesos. They have been fined on average 0 times with an average value of fines of 0 million pesos. They operate mainly in Bogotá, Antioquia and Tolima.
 
 
 #### Cluster 6
-> Contratos Múltiples de Monto Medio con Multas Moderado-Alto:
-Las entidades en este cluster otorgan en promedio 980 contratos con un valor promedio de aproximadamente 176 millones de pesos. Han sido multadas en promedio 0.4 veces con un valor promedio de multas de alrededor de 12 millones de pesos. El tiempo desde la última multa es muy alto. Operan principalmente en Bogotá, Antioquia y Valle del Cauca.
+> Multiple Medium Amount Contracts with Moderate-High Fines:
+The entities in this cluster award an average of 980 contracts with an average value of approximately 176 million pesos. They have been fined an average of 0.4 times with an average value of fines of around 12 million pesos. The time since the last fine is too long. They operate mainly in Bogotá, Antioquia and Valle del Cauca.
 
 
 #### Cluster 7
-> Contratos Moderados de Monto Muy bajo con Multas Significativas:
-En este cluster, las entidades otorgan alrededor de 143 contratos con un valor promedio de 71 millones de pesos. Han sido multadas en promedio 0 veces con un valor promedio de multas de alrededor de 170 mile pesos. El tiempo desde la última multa es alto. Operan principalmente en Antioquia, Bogotá y Atlántico.
+> Moderate Very Low Amount Contracts with Significant Fines:
+In this cluster, the entities award around 143 contracts with an average value of 71 million pesos. They have been fined on average 0 times with an average value of fines of around 170 thousand pesos. The time since the last fine is high. They operate mainly in Antioquia, Bogotá and Atlántico.
 
-### Clusters y sus características principales
+### Clusters and their main characteristics
 
-| Cluster | Contratos Promedio | Valor Promedio Contrato (Millones) | Multas Promedio | Valor Promedio Multas (Millones) | Tiempo desde última multa (meses) | Ubicación Principal |
-|---------|--------------------|------------------------------------|-----------------|-----------------------------------|----------------------------------|---------------------|
-| 1       | 35                | 914                                | 0               | 0.026                             | Muy alto                        | Santander, Cauca, Antioquia |
-| 2       | 148               | 193                                | 0.3             | 0.962                             | Muy alto                        | Antioquia, Bogotá, Valle del Cauca |
-| 3       | 458               | 157                                | 3.3             | 105                               | 44                             | Bogotá, Antioquia, Valle del Cauca |
-| 4       | 4                 | 360                                | 0               | 0.116                             | Muy alto                        | Santander, Nariño |
-| 5       | 9                 | 127                                | 0               | 0                                 | -                               | Bogotá, Antioquia, Tolima |
-| 6       | 980               | 176                                | 0.4             | 12                                | Muy alto                        | Bogotá, Antioquia, Valle del Cauca |
-| 7       | 143               | 71                                 | 0               | 0.17                              | Alto                            | Antioquia, Bogotá, Atlántico |
+| cluster | Average Contracts | Average Contract Value (Millions) | Average Fines | Average Value Fines (Millions) | Time since last fine (months) | Main Location |
+|---------|--------------------|------------------ ------------------|------------------|------------- ----------------------|--------------------------- -------|---------------------|
+| 1 | 35 | 914 | 0 | 0.026 | Very high | Santander, Cauca, Antioquia |
+| 2 | 148 | 193 | 0.3 | 0.962 | Very high | Antioquia, Bogota, Valle del Cauca |
+| 3 | 458 | 157 | 3.3 | 105 | 44 | Bogota, Antioquia, Valle del Cauca |
+| 4 | 4 | 360 | 0 | 0.116 | Very high | Santander, Narino |
+| 5 | 9 | 127 | 0 | 0 | - | Bogota, Antioquia, Tolima |
+| 6 | 980 | 176 | 0.4 | 12 | Very high | Bogota, Antioquia, Valle del Cauca |
+| 7 | 143 | 71 | 0 | 0.17 | High | Antioquia, Bogota, Atlantic |
 
 
 
-### Anomaly Detección
+### Anomaly Detection
 
-Para la deteccion de observaciones anomalas se implementa una funcion sobre los datos de “contratos_infraesructura_df” unidos con left con “entidades_clustered_df” e “ indice_transparencia”.
+For the detection of anomalous observations, a function is implemented on the data of "contratos_infraesructura_df" joined with left with "entidades_clustered_df" and "indice_transparencia".
 
-Antes de implementar la funcion se realiza un preprocesamiento de los datos que consistió en:
--Seleccionar ['REFERENCIA_CONTRATO'] como indice del data frame.
--Seleccionar las columnas numéricas y categóricas del dataframe
--Aplicar la función de “preprocess_data”que realiza los siguientes procesos. 
--Aplica StandardScaler a las variables numéricas para que todos los valores tengan la misma escala. 
--Aplica get_dummes sobre las variables categóricas para tener un dataframe con valores que el modelo reciba correctamente el data frame resultante. 
+Before implementing the function, a pre-processing of the data is carried out, which consisted of:
+-Select ['REFERENCE_CONTRACT'] as data frame index.
+-Select the numeric and categorical columns of the dataframe
+-Apply the “preprocess_data” function that performs the following processes.
+-Applies StandardScaler to numeric variables so that all values have the same scale.
+-Apply get_dummes on the categorical variables to have a dataframe with values that the model correctly receives the resulting data frame.
 
-- **Funcion detect_anomalies**:
-Recibe como parámetros el dataframe, el nombre de la columna de los cluster, los nombres de las columnas y un parámetro de contaminación de los datos que significa la probabilidad esperada de valores anómalos. Este parámetro se probó con valores entre 0.01 y 0.2. 
-En un ciclo for evalúa por cada cluster el modelo IsolationForest
+- **Function detect_anomalies**:
+It receives as parameters the data frame, the name of the cluster column, the names of the columns and a data contamination parameter that means the expected probability of outliers. This parameter was tested with values between 0.01 and 0.2.
+In a for loop, it evaluates the IsolationForest model for each cluster.
 
-Isolation Forest es un método de detección de anomalías no supervisado, es decir, que se utiliza cuando no tenemos clasificadas las observaciones como anomalías o no.
-Para decidir si una observación es anómala o no, para cada observación se calcula su anomaly score. El anomaly score es una métrica que surge de la siguiente fórmula:
+Isolation Forest is an unsupervised anomaly detection method, that is, it is used when we do not have the observations classified as anomalies or not.
+To decide if an observation is anomalous or not, its anomaly score is calculated for each observation. The anomaly score is a metric that arises from the following formula:
 s(x,n)=2−E(h(x))c(n)
-En las que:
-  h(x): es la profundidad (o altura) media de X de los iTrees construidos.
-  c(n) es la altura media para encontrar un nodo en un Isolation Tree.
-  n: es el tamaño del dataset.
+In which:
+h(x): is the average depth (or height) of X of the iTrees built.
+c(n) is the average height to find a node in an isolation tree.
+n: is the size of the dataset.
 
-El concepto general es que compara las profundidades de los distintos árboles para ver cuál es diferente a los demás. 
-Para mejorar la interpretabilidad de los resultados se realizar un escalamiento de los resultados con MinMaxScaler(feature_range=(0, 1))por lo tanto en los resultados entre más cercano a 1 significa que es más probable que se trate de un dato anómalo. 
+The general concept is that it compares the depths of different trees to see which one is different from the others.
+To improve the interpretability of the results, a scaling of the results is carried out with MinMaxScaler(feature_range=(0, 1)) therefore, in the results, the closer to 1 means that it is more likely that it is an abnormal data.
 
-Luego se Aplica PCA para visualizar todas las dimensiones de los datos en una gráfica que indica si el valor es anómalo (rojo) o no (Azul)
+PCA is then applied to visualize all the dimensions of the data in a graph that indicates whether the value is outlier (red) or not (blue).
 
-Al aplicar la función se obtienen los siguientes resultados:
+Applying the function gives the following results:
 
 <p align="center">
-  <img src="img/Anomalies_analysis.png"
-         alt="Anomalies_analysis"
-         width="500" height="300">
+<img src="img/Anomalies_analysis.png"
+alt="Anomalies_analysis"
+width="500" height="300">
 </p>
-<center>Figura 11. Anomalies analysis</center>
+<center>Figure 11. Anomalies analysis</center>
 
-| Anomaly Score | Cantidad |
+| Anomaly Score | Quantity |
 |--------|------------------------|
-| [0.0, 0.1]    | 156654                    |
-| [0.1, 0.2]    | 10070                    |
-| [0.2, 0.3]  | 92701                   |
-| [0.3, 0.4]  | 18656                  |
-| [0.4, 0.5]  | 23520                   |
-| [0.5, 0.6]  | 15860                   |
-| [0.6, 0.7]  | 14740                   |
-| [0.7, 0.8]  | 6851                   |
-| [0.8, 0.9]  | 1696                   |
-| [0.9, 1.0]  | 484                   |
+| [0.0, 0.1] | 156654 |
+| [0.1, 0.2] | 10070 |
+| [0.2, 0.3] | 92701 |
+| [0.3, 0.4] | 18656 |
+| [0.4, 0.5] | 23520 |
+| [0.5, 0.6] | 15860 |
+| [0.6, 0.7] | 14740 |
+| [0.7, 0.8] | 6851 |
+| [0.8, 0.9] | 1696 |
+| [0.9, 1.0] | 484 |
 
 | Anomaly Score | % |
 |--------|------------------------|
-| [0.0, 0.1]    | 34.9%                   |
-| [0.1, 0.2]    | 22.43%                   |
-| [0.2, 0.3]  | 20.65%                  |
-| [0.3, 0.4]  | 4.16%                  |
-| [0.4, 0.5]  | 5.24%                  |
-| [0.5, 0.6]  | 3.53%                   |
-| [0.6, 0.7]  | 3.28%                   |
-| [0.7, 0.8]  | 1.52%                   |
-| [0.8, 0.9]  | 0.38%                   |
-| [0.9, 1.0]  | 0.10%                   |
+| [0.0, 0.1] | 34.9% |
+| [0.1, 0.2] | 22.43% |
+| [0.2, 0.3] | 20.65% |
+| [0.3, 0.4] | 4.16% |
+| [0.4, 0.5] | 5.24% |
+| [0.5, 0.6] | 3.53% |
+| [0.6, 0.7] | 3.28% |
+| [0.7, 0.8] | 1.52% |
+| [0.8, 0.9] | 0.38% |
+| [0.9, 1.0] | 0.10% |
 
 
 <p align="center">
-  <img src="img/Pivot_table_Score_Anomalies.PNG"
-         alt="Pivot_table_Score_Anomalies"
-         width="600" height="250">
+<img src="img/Pivot_table_Score_Anomalies.PNG"
+alt="Pivot_table_Score_Anomalies"
+width="600" height="250">
 </p>
-<center>Figura 11. Pivot table Score Anomalies por Cluster </center> 
+<center>Figure 11. Pivot table Score Anomalies by Cluster </center>
 
 
-Los resultados nos indican que entre los cluster seleccionados no hay datos anómalos y en los bins de las probabilidades mas altas 0.8-0.9 y 0.9-1.0 se encuentran a nivel general por debajo del 1.12% de los datos y entre los bins 0.6-0.7 y 0.7-0.8 están por debajo del 7.5% de los datos. Entendiendo que lo recomendable es que estén por debajo de 0.5 estamos hablando de una muy buena distribución y clusterización de los datos. 
+The results indicate that there are no anomalous data among the selected clusters and in the bins with the highest probabilities 0.8-0.9 and 0.9-1.0 are generally below 1.12% of the data and between the bins 0.6-0.7 and 0.7-0.8 are below 7.5% of the data. Understanding that it is recommended that they be below 0.5, we are talking about a very good distribution and clustering of the data.
+
